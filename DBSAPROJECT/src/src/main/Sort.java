@@ -29,6 +29,7 @@ public class Sort {
 		StreamDriver streamD = new StreamDriver(1,methodType, bufferSize,operationType,inputFile);
 		//StreamDriver driver3 = new StreamDriver(1, 4, 4096,"RW","C:\\Users\\buse\\Desktop\\buse1.txt" );
 		List<String> outputfiles=streamD.divideBigIntoFiles();
+		System.out.println("outputfiles:" +outputfiles);
 		return(sortThemAll(outputfiles));
 		
 

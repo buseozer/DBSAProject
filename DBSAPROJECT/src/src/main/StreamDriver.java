@@ -67,13 +67,14 @@ public class StreamDriver<T> {
 		counter = 0;
 		benchmarkNumber=2;
 		createStreams();
-		divideBigIntoFiles();
+		//divideBigIntoFiles();
 	}
 
 	public List<String> divideBigIntoFiles() throws FileNotFoundException, IOException {
 		List<String> outputfiles = new ArrayList<>();
 		int value;
 		int i = 0;
+		System.out.println("size:***** "+inputStreamList.size());
 		for (InputStreamAbs streamInput : inputStreamList) {
 			streamInput.open();
 			while (!inputStreamList.get(0).endOfStream()) {

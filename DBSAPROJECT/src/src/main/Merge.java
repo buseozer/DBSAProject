@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import src.main.QueueObject;
+import src.main.StreamDriver;
 import src.input.InputStreamAbs;
 import src.output.OutputStreamAbs;
 
@@ -22,9 +24,9 @@ public class Merge {
 		this.bufferSize = bufferSize;
 		this.methodType = methodType;
 		this.operationType = operationType;
-		availableMemory = bufferSize/4;
+		availableMemory = bufferSize / 4;
 		fileTracker = 100000000;
-		numberOfd=d;
+		numberOfd = d;
 	}
 
 	public List<String> mergeFirstPhase(List<String> file) throws IOException {// sort classından gelecek
@@ -113,7 +115,7 @@ public class Merge {
 		System.out.println("output length:" + output_length);
 
 		for (InputStreamAbs file : driver.inputStreamList) {
-			file.close();  // clearFile(file.returnPath());
+			file.close(); // clearFile(file.returnPath());
 		}
 		output.close();
 		System.out.println(output.returnPath());
