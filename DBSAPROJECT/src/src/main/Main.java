@@ -33,10 +33,9 @@ public class Main {
 		double seconds = (double) duration / 1000000000.0;
 		System.out.println(seconds + " seconds");
 
-		
 		// second benchmarking
-
 		
+
 		int numberOfd = 64;
 		String operationType2 = "RW";
 		String path = "C:\\Users\\buse\\Desktop\\BigFile0.txt";
