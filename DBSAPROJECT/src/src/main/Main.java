@@ -34,7 +34,6 @@ public class Main {
 		System.out.println(seconds + " seconds");
 
 		// second benchmarking
-		
 
 		int numberOfd = 64;
 		String operationType2 = "RW";
