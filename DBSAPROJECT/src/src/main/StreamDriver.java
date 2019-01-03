@@ -23,7 +23,6 @@ public class StreamDriver<T> {
 	int methodType;
 	String operationType;
 	String[] path;
-	String[] pathre;
 	String pathwr = "C:\\Users\\buse\\Desktop\\output\\";
 	int fileSize;
 	int counter;
@@ -35,8 +34,8 @@ public class StreamDriver<T> {
 	public List<InputStreamAbs> inputStreamList;
 	List<OutputStreamAbs> outputStreamList;
 
-	public StreamDriver(int numberOfStreams, int methodType, int bufferSize, String operationType,
-			int fileSize, String... path) throws IOException {
+	public StreamDriver(int numberOfStreams, int methodType, int bufferSize, String operationType, int fileSize,
+			String... path) throws IOException {
 		this.benchmarkNumber = 1;
 		this.path = path;
 		this.numberOfStreams = numberOfStreams;
@@ -65,16 +64,14 @@ public class StreamDriver<T> {
 		inputStreamList = new ArrayList<>();
 		outputStreamList = new ArrayList<>();
 		counter = 0;
-		benchmarkNumber=2;
+		benchmarkNumber = 2;
 		createStreams();
-		//divideBigIntoFiles();
 	}
 
 	public List<String> divideBigIntoFiles() throws FileNotFoundException, IOException {
 		List<String> outputfiles = new ArrayList<>();
 		int value;
 		int i = 0;
-		System.out.println("size:***** "+inputStreamList.size());
 		for (InputStreamAbs streamInput : inputStreamList) {
 			streamInput.open();
 			while (!inputStreamList.get(0).endOfStream()) {
@@ -92,8 +89,7 @@ public class StreamDriver<T> {
 
 				}
 				output.close();
-				i++;//
-				System.out.println("-----" + counter);
+				i++;
 				counter = 0;
 
 			}
@@ -112,11 +108,9 @@ public class StreamDriver<T> {
 					inputStreamList.add(input);
 
 				} else if (operationType.equalsIgnoreCase("W")) {
-					System.out.println("writing operator");
 
 					OutputStreamAbs output = createOutputType(i);
 					outputStreamList.add(output);
-					System.out.println();
 
 				}
 
@@ -132,10 +126,8 @@ public class StreamDriver<T> {
 
 	public void mainDriver() throws IOException {// open and read till end of the file
 		if (findRightStream() == 1) {
-			System.out.println("read");
 			for (int i = 0; i < inputStreamList.size(); i++) {
 				inputStreamList.get(i).open();
-				System.out.println("ilk etap");
 
 			}
 			while (!inputStreamList.get(0).endOfStream()) {
@@ -143,14 +135,12 @@ public class StreamDriver<T> {
 					inputStreamList.get(i).read();
 				}
 			}
-			System.out.println("done");
 			for (int i = 0; i < inputStreamList.size(); i++) {
 				inputStreamList.get(i).close();
 			}
 
 		} else if (findRightStream() == 2) {
 			for (int i = 0; i < outputStreamList.size(); i++) {
-				System.out.println("Output Stream");
 				outputStreamList.get(i).create();
 			}
 			while (!outputStreamList.get(0).isDone()) {
@@ -178,20 +168,12 @@ public class StreamDriver<T> {
 			return 0;
 	}
 
-	/*
-	 * public void createOperationType() throws IOException { if
-	 * (operationType.equalsIgnoreCase("R")) { createInputType(); } else if
-	 * (operationType.equalsIgnoreCase("W")) { createOutputType(); } else
-	 * System.out.println("Please enter a valid operation type: W or R"); }
-	 */
-
 	public InputStreamAbs createInputType(int i) {
 		if (methodType == 1) {
 			return new InputStream1(path[i]);
 		} else if (methodType == 2) {
 			return new InputStream2(path[i]);
-		}
-		else if (methodType == 3) {
+		} else if (methodType == 3) {
 			return new InputStream3(path[i], bufferSize);
 		} else if (methodType == 4) {
 			return new InputStream4(path[i], bufferSize);
@@ -201,15 +183,14 @@ public class StreamDriver<T> {
 	}
 
 	public OutputStreamAbs createOutputType(int i) throws IOException {
-		if(methodType == 1) {
-			return new OutputStream1(pathwr,i,fileSize,benchmarkNumber);
-		}
-		else if (methodType == 2) {
-			return new OutputStream2(pathwr,i,fileSize,benchmarkNumber);}
-		else if (methodType == 3) {
-			return new OutputStream3(pathwr, bufferSize, i,fileSize,benchmarkNumber);
+		if (methodType == 1) {
+			return new OutputStream1(pathwr, i, fileSize, benchmarkNumber);
+		} else if (methodType == 2) {
+			return new OutputStream2(pathwr, i, fileSize, benchmarkNumber);
+		} else if (methodType == 3) {
+			return new OutputStream3(pathwr, bufferSize, i, fileSize, benchmarkNumber);
 		} else if (methodType == 4) {
-			return new OutputStream5(pathwr, bufferSize, i, fileSize,benchmarkNumber);
+			return new OutputStream5(pathwr, bufferSize, i, fileSize, benchmarkNumber);
 		} else {
 			System.out.println("Please enter a valid type");
 			return null;

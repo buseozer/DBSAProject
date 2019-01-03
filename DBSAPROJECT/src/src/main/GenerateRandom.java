@@ -1,16 +1,14 @@
 package src.main;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class GenerateRandom {
-  
-public static int count=0;
-	public static int generateRandomList() {
+
+	public static int count = 0;
+
+	public static int generateRandomList() {// generate values between [MIN_INT_VAL, MAX_INT_VAL]
 		
-		Random ran = new Random();
-		int randomNumber= (int) (Math.random() * Integer.MAX_VALUE);
+		int max_value = Integer.MAX_VALUE;
+		int randomNumber = (int) ((Math.random() * max_value * 2) - max_value);
+
 		return randomNumber;
 	}
 }

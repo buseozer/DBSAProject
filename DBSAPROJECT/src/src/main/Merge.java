@@ -1,6 +1,5 @@
 package src.main;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ public class Merge {
 	public String inputFile;
 	public int bufferSize;
 	public int methodType;
-	public int fileTracker = 1000;
+	public int fileTracker;
 	public int availableMemory;
 	public int numberOfd;
 
@@ -25,7 +24,7 @@ public class Merge {
 		this.methodType = methodType;
 		this.operationType = operationType;
 		availableMemory = bufferSize / 4;
-		fileTracker = 100000000;
+		fileTracker = 1000000000;
 		numberOfd = d;
 	}
 
@@ -42,7 +41,7 @@ public class Merge {
 	public List<String> mergeFunc(List<String> file) throws IOException {
 
 		List<String> outList = new ArrayList<>();// return list
-		List<String> passList = new ArrayList<>(); // buffersize kadar array içine atıp merge funk gönder
+		List<String> passList = new ArrayList<>(); // take as many elements as d and call merge()
 		int length = file.size();
 		int counter = 0;
 		int difference;
@@ -69,14 +68,13 @@ public class Merge {
 			fileTracker++;
 			outList.add(newPath);
 		}
-		System.out.println("OutList in 4 tane eleman------  " + outList.size());
 
 		return outList;
 	}
 
 	public String merger(List<String> passList, int fileNum) throws IOException {
 
-		PriorityQueue<QueueObject> priorityList = new PriorityQueue<>(); // store data in the priority queue.
+		PriorityQueue<QueueObject> priorityList = new PriorityQueue<>(); // store data in the priority queue
 		String[] myArr = new String[passList.size()];
 		myArr = passList.toArray(myArr);
 		int readValue;
@@ -94,44 +92,35 @@ public class Merge {
 				priorityList.add(new QueueObject(file, (int) readValue));
 			}
 		}
-		OutputStreamAbs output = driver.createOutputType(fileNum);// pass f
+		OutputStreamAbs output = driver.createOutputType(fileNum); // pass fileNum
 		output.create();
 
 		while (!priorityList.isEmpty()) {
-			QueueObject obj = priorityList.poll();// get all values of deleted element so we can increase the index
+			QueueObject obj = priorityList.poll();// get the min value in the priority queue
 			readValue = obj.value;// take the value of object
-			output.write(readValue);
+			output.write(readValue); // write it down in a output file
 			readValue = obj.input.read();
-			// length control et
 			if (!obj.input.endOfStream()) {
 				priorityList.add(new QueueObject(obj.input, (int) readValue));
-			} else {
-				System.out.println(obj.input.endOfStream());
-				System.out.println("nanik");
 			}
 			output_length++;
 
 		}
-		System.out.println("output length:" + output_length);
 
 		for (InputStreamAbs file : driver.inputStreamList) {
-			file.close(); // clearFile(file.returnPath());
+			file.close();
 		}
 		output.close();
-		System.out.println(output.returnPath());
-
 		return output.returnPath();
 
 	}
-
-	public void clearFile(String file) {
-		File myFile = new File(file);
-		boolean result = myFile.delete();
-		if (result)
-			System.out.println("Successfully deleted");
-		else
-			System.out.println("Not deleted");
-
-	}
+	/*
+	 * public void clearFile(String file) { File myFile = new File(file); boolean
+	 * result = myFile.delete(); if (result)
+	 * System.out.println("Successfully deleted"); else
+	 * System.out.println("Not deleted");
+	 * 
+	 * }
+	 */
 
 }

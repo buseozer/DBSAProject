@@ -16,31 +16,28 @@ public class Sort {
 	public int bufferSize;
 	public int methodType;
 
-	public Sort(int methodType,int bufferSize,String operationType,String inputFile) {
-		this.methodType=methodType;
-		this.bufferSize=bufferSize;
-		this.inputFile=inputFile;
-		this.operationType=operationType;
+	public Sort(int methodType, int bufferSize, String operationType, String inputFile) {
+		this.methodType = methodType;
+		this.bufferSize = bufferSize;
+		this.inputFile = inputFile;
+		this.operationType = operationType;
 
 	}
 
 	public List<String> ExternalMainFunc() throws IOException {
-		
-		StreamDriver streamD = new StreamDriver(1,methodType, bufferSize,operationType,inputFile);
-		//StreamDriver driver3 = new StreamDriver(1, 4, 4096,"RW","C:\\Users\\buse\\Desktop\\buse1.txt" );
-		List<String> outputfiles=streamD.divideBigIntoFiles();
-		System.out.println("outputfiles:" +outputfiles);
-		return(sortThemAll(outputfiles));
-		
+
+		StreamDriver streamD = new StreamDriver(1, methodType, bufferSize, operationType, inputFile);
+		List<String> outputfiles = streamD.divideBigIntoFiles();
+		return (sortThemAll(outputfiles));
 
 	}
 
 	public List<String> sortThemAll(List<String> listOfPath) throws IOException {
-		
+
 		List<String> outputfiles = new ArrayList<>();
 		for (int i = 0; i < listOfPath.size(); i++) {
-			
-			String newPath=sort(listOfPath.get(i),i);// bu path de bu numarayla
+
+			String newPath = sort(listOfPath.get(i), i); // pass path and file number as parameters
 			outputfiles.add(newPath);
 		}
 		return outputfiles;
@@ -48,7 +45,7 @@ public class Sort {
 
 	public String sort(String path, int fileNum) throws IOException {// path for reading, fileNum for writing
 
-		StreamDriver streamDriver = new StreamDriver<>(1, methodType, bufferSize,operationType, path);
+		StreamDriver streamDriver = new StreamDriver<>(1, methodType, bufferSize, operationType, path);
 		return (sortFileWithStream(streamDriver, path, fileNum));
 	}
 

@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.util.ArrayList;
 import java.util.List;
 
 import src.main.GenerateRandom;
@@ -15,6 +14,7 @@ public class OutputStream5 implements OutputStreamAbs {
 	File myFile;
 	FileChannel fileChanel;
 	MappedByteBuffer buffer;
+
 	public String path;
 	int bufferSize;
 	int fileNum;
@@ -41,6 +41,22 @@ public class OutputStream5 implements OutputStreamAbs {
 		buffer.load();
 	}
 
+	@Override
+	public void write() throws IOException {
+
+		if (buffer.hasRemaining()) {
+
+			buffer.putInt(GenerateRandom.generateRandomList());
+			curPtr++;
+
+		} else {
+			buffer.clear();
+			buffer = fileChanel.map(FileChannel.MapMode.READ_WRITE, curPtr * 4, bufferSize);
+		}
+
+	}
+
+	@Override
 	public void write(int value) throws IOException {
 
 		if (buffer.hasRemaining()) {
@@ -62,6 +78,14 @@ public class OutputStream5 implements OutputStreamAbs {
 	}
 
 	@Override
+	public boolean isDone() {
+		if (curPtr < fileSize * 262144)
+			return false;
+		else
+			return true;
+	}
+
+	@Override
 	public void close() throws IOException {
 		buffer.clear();
 		fileChanel.close();
@@ -71,28 +95,4 @@ public class OutputStream5 implements OutputStreamAbs {
 	public String returnPath() {
 		return path;
 	}
-
-	@Override
-	public void write() throws IOException {
-
-		if (buffer.hasRemaining()) {
-
-			buffer.putInt(GenerateRandom.generateRandomList());
-			curPtr++;
-
-		} else {
-			buffer.clear();
-			buffer = fileChanel.map(FileChannel.MapMode.READ_WRITE, curPtr * 4, bufferSize);
-		}
-
-	}
-
-	@Override
-	public boolean isDone() {
-		if (curPtr < fileSize * 262144)
-			return false;
-		else
-			return true;
-	}
-
 }

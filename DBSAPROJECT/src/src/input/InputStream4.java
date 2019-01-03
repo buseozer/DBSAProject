@@ -67,7 +67,6 @@ public class InputStream4 implements InputStreamAbs {
 	public void close() throws IOException {
 		buffer.clear();
 		fileChannel.close();
-
 	}
 
 	@Override

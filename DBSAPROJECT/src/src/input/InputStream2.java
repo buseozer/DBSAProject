@@ -32,20 +32,16 @@ public class InputStream2 implements InputStreamAbs {
 
 	@Override
 	public boolean endOfStream() throws IOException {
-
 		if (dataInput.available() >= 4)
 			return false;
 		else
 			return true;
-
 	}
 
 	@Override
 	public void close() throws IOException {
-
 		fileInput.close();
 		dataInput.close();
-
 	}
 
 	@Override

@@ -4,8 +4,6 @@ import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import src.output.OutputStreamAbs;
 import src.main.GenerateRandom;
@@ -38,9 +36,8 @@ public class OutputStream1 implements OutputStreamAbs {
 
 	}
 
-
 	public boolean isDone() {
-		if (counter <  fileSize*262144)
+		if (counter < fileSize * 262144)
 			return false;
 		else
 			return true;
