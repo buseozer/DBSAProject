@@ -11,4 +11,5 @@ public class GenerateRandom {
 
 		return randomNumber;
 	}
+	
 }
