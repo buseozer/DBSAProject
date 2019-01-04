@@ -9,7 +9,6 @@ import src.main.StreamDriver;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-
 		// firstbenchmarking
 
 		int numberOfStreams = 1;
