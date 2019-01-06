@@ -1,30 +1,57 @@
 package test;
 
+import java.io.File;
 import java.io.IOException;
 
+import src.main.StreamDriver;
+
 public class Benchmark1 {
+
 	public static void main(String[] args) throws IOException {
+		// firstbenchmarking
 
-		long startTime = System.nanoTime();
+		int numberOfStreams = 1;
+		int methodType = 4;
+		int bufferSize = 1024 * 16;
+		int minFileSize = 1;
+		int maxFileSize = 1000; 
+		String operationType = "W"; //When change operationType, change the last parameter of StreamDriver's constructor
+		int maxK = 30;
 
-		// method
-		System.out.println("H1234264540!#!%&/");
+		long start;
+		long end;
+		long duration;
+		double seconds;
 
-		long endTime = System.nanoTime();
-		long duration = (endTime - startTime);
+		new File("streamFiles/Files/").mkdirs();
 
-		// nanoseconds
-		System.out.println(duration + " nanoseconds");
+		int u = 2;
+		for (int fileSize = minFileSize; fileSize <= maxFileSize; fileSize *= u) {
+			u = u == 5 ? 2 : 5;
+			String writing_path = "streamFiles\\Files\\" + fileSize + "_";
 
-		// seconds precision
-		double seconds = (double) duration / 1000000000.0;
-		System.out.println(seconds + " seconds");
+			String[] reading_path = new String[maxK];
+			
+			for (int j = 0; j < maxK; j++) {
+				reading_path[j] = writing_path + j + ".txt";
+			}
 
-		int[] kStreams = { 1, 5, 10, 15, 20, 25, 30 };
-		String[] path = { "C:\\Users\\buse\\Desktop\\buse3.txt" };
+			for (int i = 0; i <= maxK; i += 5) {
+				if (i == 0)
+					numberOfStreams = 1;
+				else
+					numberOfStreams = i;
 
-		for (int k : kStreams) {
-
+				start = System.nanoTime();
+				StreamDriver driver = new StreamDriver(numberOfStreams, methodType, bufferSize, operationType, fileSize, writing_path);
+				end = System.nanoTime();
+				duration = (end - start);
+				seconds = (double) duration / 1000000000.0;
+				System.out.println("numberOfStreams = " + numberOfStreams + ", methodType = " + methodType + ", bufferSize = "
+								+ bufferSize + " , operationType = " + operationType + ", fileSize = " + fileSize);
+				System.out.println(seconds + " seconds");
+			}
 		}
 	}
+
 }
