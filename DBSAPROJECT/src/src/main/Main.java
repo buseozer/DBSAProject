@@ -53,20 +53,6 @@ public class Main {
 				System.out.println(seconds + " seconds");
 			}
 		}
-
-		// second benchmarking
-		
-
-		int numberOfd = 64;
-		String operationType2 = "RW";
-		String path = "C:\\Users\\buse\\Desktop\\BigFile0.txt";
-
-		Sort ex = new Sort(methodType, bufferSize, operationType2, path);
-		List<String> myList = ex.ExternalMainFunc();
-		System.out.println(myList.size());
-		Merge newMerge = new Merge(bufferSize, methodType, "RW", numberOfd);
-		newMerge.mergeFirstPhase(myList);
-
 	}
 
 }
