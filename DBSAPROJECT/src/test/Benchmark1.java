@@ -15,7 +15,8 @@ public class Benchmark1 {
 		int bufferSize = 1024 * 16;
 		int minFileSize = 1;
 		int maxFileSize = 1000; 
-		String operationType = "W"; //When change operationType, change the last parameter of StreamDriver's constructor
+		String operationType = "W"; // First writing operation should be used, then corresponding reading operation
+		//When change operationType, change the last parameter of StreamDriver's constructor
 		int maxK = 30;
 
 		long start;
